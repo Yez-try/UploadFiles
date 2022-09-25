@@ -48,7 +48,7 @@ public class HomeController {
 	public String uploadFile(MultipartFile file, String path, HttpSession session) {
 		String fileName = "";
 		try {
-			fileName = fileManager.saveFile(session.getServletContext(),path, file);
+			fileName = fileManager.saveFile(session.getServletContext(),"resources/"+path, file);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
