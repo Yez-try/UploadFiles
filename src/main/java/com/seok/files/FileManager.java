@@ -14,7 +14,7 @@ public class FileManager {
 	
 	public String saveFile(ServletContext servletContext, String path, MultipartFile multipartfile) throws Exception{
 		//1. 실제 경로
-		String realPath = servletContext.getRealPath(path);
+		String realPath = servletContext.getRealPath("resources/"+path);
 		System.out.println(realPath);
 		
 		//2. 폴더(directory)체크
@@ -34,6 +34,16 @@ public class FileManager {
 		
 		
 		return fileName;
+	}
+	
+	//HDD에서 파일 삭제
+	public boolean deleteFile(ServletContext servletContext, String path, String f_name) throws Exception{
+		String realPath = servletContext.getRealPath("resources/"+path);
+		File file = new File(realPath, f_name); //파일의 정보를 가진 File객체
+		
+		boolean result = file.delete(); //해당 파일을 지우자
+		
+		return result;
 	}
 
 }

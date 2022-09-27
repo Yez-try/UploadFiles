@@ -48,13 +48,37 @@ public class HomeController {
 	public String uploadFile(MultipartFile file, String path, HttpSession session) {
 		String fileName = "";
 		try {
-			fileName = fileManager.saveFile(session.getServletContext(),"resources/"+path, file);
+			fileName = fileManager.saveFile(session.getServletContext(),path, file);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		return fileName;
+	}
+	
+	
+	@CrossOrigin(origins="*", allowedHeaders = "*")
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public String deleteFile(String f_name, String path, HttpSession session) {
+		boolean result = false;
+		System.out.println("삭제 : "+f_name);
+		try {
+			result = fileManager.deleteFile(session.getServletContext(), path, f_name);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String message = "";
+		if(result==true) {
+			message = "1";
+		}else {
+			message = "0";
+		}
+		
+		return message;
 	}
 	
 }
